@@ -12,7 +12,7 @@
 #' @return a \code{n}-by-\code{p * max{omega - 1}} matrix containing the constructed knockoff variables. Although we construct the same number of knockoffs for all variables (which is the maximum cost), in subsequent steps, we only use the number of knockoffs based on the feature costs.
 #'
 #' @examples
-#' library(mknockoff)
+#' library(cheapknockoff)
 #' set.seed(123)
 #' n <- 100
 #' p <- 30
@@ -20,10 +20,10 @@
 #' y <- x[, 1] - 2 * x[, 2] + rnorm(n)
 #' omega <- c(2, 9, sample(seq(2, 9), size = 28, replace = TRUE))
 #' # construct multiple knockoffs
-#' X_k <- knockoff_Gaussian(X = x, mu = rep(0, p), Sigma = diag(1, p), omega = omega)
+#' X_k <- multiple_knockoff_Gaussian(X = x, mu = rep(0, p), Sigma = diag(1, p), omega = omega)
 #' @import CVXR
 #' @export
-knockoff_Gaussian <- function(X, mu, Sigma, omega, type = c("entropy", "sdp", "equi"), diag_s = NULL){
+multiple_knockoff_Gaussian <- function(X, mu, Sigma, omega, type = c("entropy", "sdp", "equi"), diag_s = NULL){
   # generate multiple knockoff variables of the orignal X, which
   # follows a Gaussian(mu, Sigma)
   # X_j is constructed omega_j - 1 times for each j

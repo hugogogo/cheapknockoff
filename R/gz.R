@@ -11,7 +11,7 @@
 #' @return The selected variable and their corresponding scores
 #'
 #' @examples
-#' library(mknockoff)
+#' library(cheapknockoff)
 #' set.seed(123)
 #' n <- 100
 #' p <- 30
@@ -19,7 +19,7 @@
 #' y <- x[, 1] - 2 * x[, 2] + rnorm(n)
 #' omega <- c(2, 9, sample(seq(2, 9), size = 28, replace = TRUE))
 #' # construct multiple knockoffs
-#' X_k <- knockoff_Gaussian(X = x, mu = rep(0, p), Sigma = diag(1, p), omega = omega)
+#' X_k <- multiple_knockoff_Gaussian(X = x, mu = rep(0, p), Sigma = diag(1, p), omega = omega)
 #' # compute knockoff statistics
 #' stat <- stat_glmnet_coef(X = x, X_k = X_k, y = y, omega = omega)
 #' # run gz filter

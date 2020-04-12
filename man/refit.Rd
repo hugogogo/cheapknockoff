@@ -2,7 +2,7 @@
 % Please edit documentation in R/refit.R
 \name{refit}
 \alias{refit}
-\title{Refitting a path of selected variables from the mknockoff filter and compute prediction on the newdata}
+\title{Refitting a path of selected variables from the cheapknockoff filter and compute prediction on the newdata}
 \usage{
 refit(path, x, y, newdata, family = "gaussian")
 }
@@ -18,13 +18,13 @@ refit(path, x, y, newdata, family = "gaussian")
 \item{family}{The conditional distribution of y given X. See the family option for \code{glmnet}.}
 }
 \value{
-a list consisting the refitted model and the corresponding prediction for each model on the path returned by \code{mk_path}.
+a list consisting the refitted model and the corresponding prediction for each model on the path returned by \code{generate_path}.
 }
 \description{
-Refitting a path of selected variables from the mknockoff filter and compute prediction on the newdata
+Refitting a path of selected variables from the cheapknockoff filter and compute prediction on the newdata
 }
 \examples{
-library(mknockoff)
+library(cheapknockoff)
 set.seed(123)
 n <- 100
 p <- 30
@@ -32,11 +32,11 @@ x <- matrix(data = rnorm(n * p), nrow = n, ncol = p)
 y <- x[, 1] - 2 * x[, 2] + rnorm(n)
 omega <- c(2, 9, sample(seq(2, 9), size = 28, replace = TRUE))
 # construct multiple knockoffs
-X_k <- knockoff_Gaussian(X = x, mu = rep(0, p), Sigma = diag(1, p), omega = omega)
+X_k <- multiple_knockoff_Gaussian(X = x, mu = rep(0, p), Sigma = diag(1, p), omega = omega)
 # compute knockoff statistics
-stat <- mknockoff::stat_glmnet_coef(X = x, X_k = X_k, y = y, omega = omega)
+stat <- cheapknockoff::stat_glmnet_coef(X = x, X_k = X_k, y = y, omega = omega)
 # yield the path of selected variables
-path <- mknockoff::mk_path(kappa = stat$kappa, tau = stat$tau)
+path <- cheapknockoff::generate_path(kappa = stat$kappa, tau = stat$tau)
 # refit and compute predictions on the original data
 refit_output <- refit(path, x, y, x)
 

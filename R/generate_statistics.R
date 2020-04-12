@@ -30,7 +30,7 @@ normc <- function(X, center = T)
 #' }
 #'
 #' @examples
-#' library(mknockoff)
+#' library(cheapknockoff)
 #' set.seed(123)
 #' n <- 100
 #' p <- 30
@@ -38,9 +38,9 @@ normc <- function(X, center = T)
 #' y <- x[, 1] - 2 * x[, 2] + rnorm(n)
 #' omega <- c(2, 9, sample(seq(2, 9), size = 28, replace = TRUE))
 #' # construct multiple knockoffs
-#' X_k <- knockoff_Gaussian(X = x, mu = rep(0, p), Sigma = diag(1, p), omega = omega)
+#' X_k <- multiple_knockoff_Gaussian(X = x, mu = rep(0, p), Sigma = diag(1, p), omega = omega)
 #' # compute knockoff statistics
-#' stat <- mknockoff::stat_glmnet_coef(X = x, X_k = X_k, y = y, omega = omega)
+#' stat <- cheapknockoff::stat_glmnet_coef(X = x, X_k = X_k, y = y, omega = omega)
 #' @export
 stat_glmnet_coef <- function(X, X_k, y, omega, family = "gaussian",
                              nlam = 500, lam_min_ratio = 5e-4){
