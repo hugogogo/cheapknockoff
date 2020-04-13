@@ -64,12 +64,15 @@ multiple_knockoff_Gaussian <- function(X, mu, Sigma, omega, type = c("entropy", 
   # here for simplicity we use Kronecker product
   C <- matrix(1, nrow = num_knockoff, ncol = num_knockoff) %x% CmD + diag(rep(1, num_knockoff)) %x% diag_s
 
+  stopifnot(isSymmetric(C))
+
   # the Cholesky decomposition of C
   # recall C_chol^T C_chol = C
   eps <- 1e-4
-  if(min(eigen(C, only.values = TRUE)$values) <= eps){
+  min_lam <- min(eigen(C, only.values = TRUE)$values)
+  if(min_lam <= eps){
     print('Generated diagonal is invalid. Adding eps to the diagonal of the knockoff joint covariance matrix.')
-    C <- C + diag(eps, dim(C))
+    C <- C + diag(abs(min_lam) + eps, dim(C))
   }
 
   # Finally generate the desired knockoff variables
