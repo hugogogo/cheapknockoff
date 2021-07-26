@@ -4,8 +4,14 @@
 \alias{multiple_knockoff_Gaussian}
 \title{Generating multiple knockoff variables}
 \usage{
-multiple_knockoff_Gaussian(X, mu, Sigma, omega, type = c("entropy", "sdp",
-  "equi"), diag_s = NULL)
+multiple_knockoff_Gaussian(
+  X,
+  mu,
+  Sigma,
+  omega,
+  type = c("entropy", "sdp", "equi"),
+  diag_s = NULL
+)
 }
 \arguments{
 \item{X}{A \code{n}-by-\code{p} matrix of original variables}

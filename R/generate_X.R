@@ -92,8 +92,13 @@ solve_entropy <- function(Sigma, num_knockoff, eps = 1e-8){
   # objective definition
   obj <- Maximize(log_det(Sig_scaled - diag(D)) + num_knockoff * sum_entries(log(D)))
   # constraint definition
-  constr <- list(Sig_scaled - diag(D) - diag(eps, p) == Semidef(p),
-                 D >= 0)
+  # CVXR Version 1.0 Note: Positive semi-definite variables are now designated using PSD = TRUE rather than the Semidef function!
+  if (packageVersion("CVXR") > "0.99-7") {
+    S  <- Variable(p, p, PSD = TRUE)
+    constr <- list(Sig_scaled - diag(D) - diag(eps, p) == S, D >= 0)
+  } else {
+    constr <- list(Sig_scaled - diag(D) - diag(eps, p) == Semidef(p), D >= 0)
+  }
   # equivalently
   # constr <- list(lambda_min(Sig_scaled - diag(D)) > 0,
   #                D >= 0)

@@ -4,8 +4,15 @@
 \alias{stat_glmnet_coef}
 \title{Generating multiple knockoff statistics using coefficient estimate from glmnet}
 \usage{
-stat_glmnet_coef(X, X_k, y, omega, family = "gaussian", nlam = 500,
-  lam_min_ratio = 5e-04)
+stat_glmnet_coef(
+  X,
+  X_k,
+  y,
+  omega,
+  family = "gaussian",
+  nlam = 500,
+  lam_min_ratio = 5e-04
+)
 }
 \arguments{
 \item{X}{A \code{n}-by-\code{p} matrix of original variables}
